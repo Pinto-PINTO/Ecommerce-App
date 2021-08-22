@@ -144,7 +144,6 @@ public class RegisterUser extends AppCompatActivity {
                         if(task.isSuccessful()){
 
 
-
                             // If so create user object
                             User user = new User(name,phone,email);
 
