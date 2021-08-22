@@ -17,6 +17,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class RegisterUser extends AppCompatActivity {
 
@@ -142,12 +143,34 @@ public class RegisterUser extends AppCompatActivity {
                         // Check if user has been registered
                         if(task.isSuccessful()){
 
+
+
                             // If so create user object
                             User user = new User(name,phone,email);
 
                             // Send user object to real-time db in Firebase
+                            FirebaseDatabase.getInstance().getReference("Users")
+                                    .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                                    .setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if(task.isSuccessful()){
+                                        Toast.makeText(RegisterUser.this, "User has been registered successfully", Toast.LENGTH_LONG).show();
+//                                        progressBar.setVisibility(View.GONE);
 
+                                        // Then redirect to the login page
+                                    }
 
+                                    else{
+                                        Toast.makeText(RegisterUser.this, "Failed to register", Toast.LENGTH_LONG).show();
+//                                        progressBar.setVisibility(View.GONE);
+                                    }
+                                }
+                            });
+
+                        }
+                        else{
+                            Toast.makeText(RegisterUser.this, "Failed to register user", Toast.LENGTH_LONG).show();
                         }
                     }
                 });
