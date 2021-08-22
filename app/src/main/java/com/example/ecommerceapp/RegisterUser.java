@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,6 +30,7 @@ public class RegisterUser extends AppCompatActivity {
     EditText reg_name, reg_phone, reg_email, reg_password;
     Button register_btn;
     ImageButton back_btn;
+    ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +47,7 @@ public class RegisterUser extends AppCompatActivity {
         reg_password = (EditText) findViewById(R.id.reg_password);
         register_btn = (Button) findViewById(R.id.register_btn);
         back_btn = (ImageButton) findViewById(R.id.back_btn);
-
+        progressBar = (ProgressBar) findViewById(R.id.progressBar);
 
         // If header is clicked forward to login page
         heading.setOnClickListener(new View.OnClickListener() {
@@ -132,7 +134,7 @@ public class RegisterUser extends AppCompatActivity {
         }
 
         // Setting visibility of progress bar
-//        progressBar.setVisible(View.VISIBLE);
+        progressBar.setVisibility(View.VISIBLE);
 
         // Firebase Authentication (Creating user with email and password by passing above created variables as parameters)
         mAuth.createUserWithEmailAndPassword(email,password)
@@ -155,14 +157,16 @@ public class RegisterUser extends AppCompatActivity {
                                 public void onComplete(@NonNull Task<Void> task) {
                                     if(task.isSuccessful()){
                                         Toast.makeText(RegisterUser.this, "User has been registered successfully", Toast.LENGTH_LONG).show();
-//                                        progressBar.setVisibility(View.GONE);
+                                        progressBar.setVisibility(View.GONE);
 
                                         // Then redirect to the login page
+                                        Intent login_redirect_intent = new Intent(RegisterUser.this,MainActivity.class);
+                                        startActivity(login_redirect_intent);
                                     }
 
                                     else{
                                         Toast.makeText(RegisterUser.this, "Failed to register", Toast.LENGTH_LONG).show();
-//                                        progressBar.setVisibility(View.GONE);
+                                        progressBar.setVisibility(View.GONE);
                                     }
                                 }
                             });
