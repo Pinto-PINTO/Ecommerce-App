@@ -6,13 +6,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
     // Components
-    TextView login_email;
-    TextView login_password;
+    EditText login_email, login_password;
     TextView register;
     Button login_btn;
 
@@ -21,10 +21,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        login_email = findViewById(R.id.login_email);
-        login_password = findViewById(R.id.login_password);
-        register = findViewById(R.id.register);
-        login_btn = findViewById(R.id.login_btn);
+        login_email = (EditText) findViewById(R.id.login_email);
+        login_password = (EditText) findViewById(R.id.login_password);
+        register = (TextView) findViewById(R.id.register);
+        login_btn = (Button) findViewById(R.id.login_btn);
 
         register.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -36,3 +36,5 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 }
+
+//https://www.youtube.com/watch?v=Z-RE1QuUWPg
